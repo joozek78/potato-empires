@@ -37,6 +37,8 @@ executeWithCors method r action = method r $ do
 post = executeWithCors Scotty.post
 get = executeWithCors Scotty.get
 
+newGame gen = webM $ S.put (createNewRandomGameState gen)
+
 app :: GameState -> ScottyT Text (WebM GameState) ()
 app defaultGameState = do
     middleware logStdoutDev
@@ -77,7 +79,7 @@ app defaultGameState = do
         case result of 
             Just newState -> do 
                 if (gameOver newState) 
-                    then webM $ S.put defaultGameState
+                    then newGame
                     else webM $ S.put newState
                 json $ object []
             Nothing -> do

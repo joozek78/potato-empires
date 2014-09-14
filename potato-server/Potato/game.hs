@@ -63,6 +63,19 @@ data GameState = GameState {
 createGameState m = GameState m Redosia 0 defaultPlayerMoves [Redosia, Shitloadnam]
 defaultPlayerMoves = 2
 
+cityNames = ["Warsaw", "London", "Paris", "Vienna"]
+
+createNewRandomGameState gen = createGameState randomMap where 
+    mapSize = (10,10)
+
+    randomMap = evalRandTWith gen $ do
+        
+        replicateM 10 placeRandomCity bounds
+         
+    placeRandomCity = 
+    getRandomCityName = sampleRVar $ choice cityNames
+    evalRandWith = flip evalRandT
+
 makeLenses ''MapField
 makeFields ''GameState
 makeFields ''City
