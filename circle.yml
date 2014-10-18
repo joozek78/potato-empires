@@ -3,4 +3,4 @@ machine:
     version: 7.8.3
 general:
   artifacts:
-    - "main.exe" # main executable
+    - "dist/build/potato-server/potato-server" # main executable
